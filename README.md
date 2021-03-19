@@ -1,4 +1,4 @@
-# Backend for Store Med
+# Backend StoreMed
 
 ## Setup
 ### Dependencies
