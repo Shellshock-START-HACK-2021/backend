@@ -8,12 +8,12 @@ Path - /auth/login
 Request Type - POST
 Argument Format - JSON
 
-### Arguments
+#### Arguments
 
 &nbsp;&nbsp;email - string (required)
 &nbsp;&nbsp;password - string (required)
 
-### Example
+#### Example
 
 POST [https://storemed-dumb.herokuapp.com/auth/login](https://storemed-dumb.herokuapp.com/auth/login)
 
