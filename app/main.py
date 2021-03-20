@@ -4,7 +4,12 @@ from flask_jwt_extended import (JWTManager, create_access_token, get_jwt,
 from decouple import config
 from datetime import datetime, timedelta, timezone
 
+from app import auth, user
+
 app = Flask(__name__)
+
+app.register_blueprint(auth.bp, url_prefix="/auth")
+app.register_blueprint(user.bp, url_prefix="/user")
 
 ## JWT settings and init
 app.config["JWT_COOKIE_SECURE"] = False
