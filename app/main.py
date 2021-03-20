@@ -15,7 +15,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.register_blueprint(auth.bp, url_prefix="/auth")
 app.register_blueprint(user.bp, url_prefix="/user")
-app.register_blueprint(uplaod.bp, url_prefix="/upload")
+app.register_blueprint(upload.bp, url_prefix="/upload")
 ## JWT settings and init
 app.config["JWT_COOKIE_SECURE"] = False
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
