@@ -3,10 +3,14 @@ from flask_jwt_extended import (JWTManager, create_access_token, get_jwt,
                                 get_jwt_identity, set_access_cookies)
 from decouple import config
 from datetime import datetime, timedelta, timezone
+from flask_cors import CORS
 
 from app import auth, user
 
 app = Flask(__name__)
+
+# Allow COR for whole app
+CORS(app)
 
 app.register_blueprint(auth.bp, url_prefix="/auth")
 app.register_blueprint(user.bp, url_prefix="/user")
