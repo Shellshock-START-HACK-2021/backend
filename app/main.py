@@ -10,7 +10,7 @@ from app import auth, user
 app = Flask(__name__)
 
 # Allow COR for whole app
-app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 CORS(app)
 
 app.register_blueprint(auth.bp, url_prefix="/auth")
