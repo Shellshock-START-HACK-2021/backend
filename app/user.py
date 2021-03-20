@@ -17,7 +17,7 @@ def get_user_history():
     history = user["history"]
     return jsonify(success=True, history=history), 200
 
-@bp.route("/account/info", methods=["GET", "POST"])
+@bp.route("/info", methods=["GET", "POST"])
 @jwt_required()
 def get_account_inof():
     email = get_jwt_identity()
