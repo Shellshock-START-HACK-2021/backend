@@ -1,8 +1,8 @@
 from datetime import datetime
-
+import re
 import bcrypt
 from decouple import config
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, json, jsonify, request
 from flask_jwt_extended import (create_access_token, jwt_required,
                                 set_access_cookies, unset_jwt_cookies)
 from flask_jwt_extended.utils import get_jwt_identity
@@ -11,17 +11,18 @@ from werkzeug.security import safe_str_cmp
 
 bp = Blueprint("auth", __name__)
 db = MongoClient(f"mongodb+srv://{config('MONGODB_USERNAME')}:{config('MONGODB_PASSWORD')}@{config('MONGODB_HOST')}/?retryWrites=true&w=majority").storemed
-
+email_regex = re.compile("[^@]+@[^@]+\.[^@]+")
 
 @bp.route("/login", methods=["POST"])
 def login():
-    email = request.json.get("email", False)
-    password = request.json.get("password", False)
+    email = str(request.json.get("email", None))
+    password = str(request.json.get("password", None))
     if not email:
         return jsonify(success=False, error="No email provided")
     if not password:
         return jsonify(success=False, error="No password provided")
-
+    if not email_regex.match(email):
+        return jsonify(success=False, error="Invalid email")
     hashed_password = bcrypt.kdf(password=password.encode("UTF-8"), salt=config("PASSWORD_SALT").encode("UTF-8"), desired_key_bytes=32, rounds=100)
     del password
 
@@ -37,10 +38,10 @@ def login():
 
 @bp.route("/signup", methods=["POST"])
 def signup():
-    email = request.json.get("email", False)
-    password = request.json.get("password", False)
-    name = request.json.get("name", False)
-    dob = request.json.get("dob", False)
+    email = str(request.json.get("email", None))
+    password = str(request.json.get("password", None))
+    name = str(request.json.get("name", None)).title()
+    dob = str(request.json.get("dob", None))
     if not email:
         return jsonify(success=False, error="No email provided"), 400
     if not password:
@@ -49,7 +50,15 @@ def signup():
         return jsonify(success=False, error="No name provided"), 400
     if not dob:
         return jsonify(success=False, error="No DOB provided"), 400
-    if ((datetime.now() - datetime.strptime(dob, "%d/%m/%Y")).days%366) < 18:
+    try:
+        date = datetime.strptime(dob, "%d/%m/%Y")
+    except:
+        return jsonify(success=False, error="Inavlid date format must be dd/mm/YYYY")
+
+    if not email_regex.match(email):
+        return jsonify(success=False, error="Invalid email")
+
+    if ((datetime.now() - date).days%366) < 18:
         return jsonify(success=False, error="You must be over the age of 18"), 400
 
     hashed_password = bcrypt.kdf(password=password.encode("UTF-8"), salt=config("PASSWORD_SALT").encode("UTF-8"), desired_key_bytes=32, rounds=100)
