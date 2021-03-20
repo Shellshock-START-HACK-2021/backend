@@ -29,7 +29,7 @@ def login():
     user = db.users.find_one({"email": email})
     if user and safe_str_cmp(user["password"], hashed_password):
         access_token = create_access_token(identity=email)
-        response = jsonify(success=True)
+        response = jsonify(success=True, name=user["name"])
         set_access_cookies(response, access_token)
         return response
     else:
