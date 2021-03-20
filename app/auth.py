@@ -61,7 +61,7 @@ def signup():
             "email": email, 
             "password": hashed_password,
             "name": name,
-            "dob":datetime.strptime(dob, '%d-%m-%Y')
+            "dob":datetime.strptime(dob, '%d/%m/%Y')
         }
         insert_user = db.users.insert_one(user_schema)
         if insert_user:
