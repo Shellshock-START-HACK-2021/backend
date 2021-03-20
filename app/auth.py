@@ -60,6 +60,12 @@ def signup():
             "email": email, 
             "password": hashed_password,
             "name": name,
+            "dob": None,
+            "weight": None,
+            "height": None,
+            "address": None,
+            "ssn": None,
+            "history": [],
         }
         insert_user = db.users.insert_one(user_schema)
         if insert_user:
