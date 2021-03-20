@@ -4,14 +4,14 @@
 
 ### Login
 
-Path - /auth/login
-Request Type - POST
-Argument Format - JSON
+Path - /auth/login  
+Request Type - POST  
+Argument Format - JSON  
 
 #### Arguments
 
-&nbsp;&nbsp;email - string (required)
-&nbsp;&nbsp;password - string (required)
+&nbsp;&nbsp;email - string (required)  
+&nbsp;&nbsp;password - string (required)  
 
 #### Example
 
@@ -36,14 +36,16 @@ Adds JWT to cookies
 
 ### Signup
 
-Path - /auth/signup
-Request Type - POST
-Argument Format - JSON
+Path - /auth/signup  
+Request Type - POST  
+Argument Format - JSON  
 
 #### Arguments (*subject to change*)
 
-&nbsp;&nbsp;email - string (required)
-&nbsp;&nbsp;password - string (required)
+&nbsp;&nbsp;email - string (required)  
+&nbsp;&nbsp;password - string (required)  
+&nbsp;&nbsp;name - string (required)  
+&nbsp;&nbsp;dob - string dd-MM-YYYY (required)  
 
 #### Example
 
@@ -52,11 +54,15 @@ POST [https://storemed-dumb.herokuapp.com/auth/signup](https://storemed-dumb.her
 ```json
 {
     "email": "email@email.com",
-    "password": "qwerty123"
+    "password": "qwerty123",
+    "name": "John Doe",
+    "dob": "14-06-2003"
 }
 ```
 
 #### Returns
+
+#### Success
 
 ```json
 {
@@ -66,13 +72,36 @@ POST [https://storemed-dumb.herokuapp.com/auth/signup](https://storemed-dumb.her
 
 Adds JWT to cookies
 
+#### Error
+
+Status Code - 400
+
+```json
+{
+    "success": false,
+    "error": "<prop-name> not provided"
+}
+```
+
+#### Error
+
+
+Status Code - 400
+
+```json
+{
+    "success": false,
+    "error": "Must be more than 18 years of age"
+}
+```
+
 ### Logout
 
-Path - /auth/logout
-Request Type - POST
-Argument Format - JSON
+Path - /auth/logout  
+Request Type - POST  
+Argument Format - JSON  
 
-#### Arguments (*subject to change*)
+#### Arguments
 
 None
 
