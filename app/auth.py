@@ -1,8 +1,8 @@
-from datetime import datetime
 import re
+
 import bcrypt
 from decouple import config
-from flask import Blueprint, json, jsonify, request
+from flask import Blueprint, jsonify, request
 from flask_jwt_extended import (create_access_token, jwt_required,
                                 set_access_cookies, unset_jwt_cookies)
 from flask_jwt_extended.utils import get_jwt_identity
