@@ -49,7 +49,7 @@ def signup():
         return jsonify(success=False, error="No name provided"), 400
     if not dob:
         return jsonify(success=False, error="No DOB provided"), 400
-    if ((datetime.now() - datetime.strptime(dob, '%d-%m-%Y')).days%366) < 18:
+    if ((datetime.now() - datetime.strptime(dob, "%d/%m/%Y")).days%366) < 18:
         return jsonify(success=False, error="You must be over the age of 18"), 400
 
     hashed_password = bcrypt.kdf(password=password.encode("UTF-8"), salt=config("PASSWORD_SALT").encode("UTF-8"), desired_key_bytes=32, rounds=100)
@@ -61,7 +61,7 @@ def signup():
             "email": email, 
             "password": hashed_password,
             "name": name,
-            "dob":datetime.strptime(dob, '%d/%m/%Y')
+            "dob":datetime.strptime(dob, "%d/%m/%Y")
         }
         insert_user = db.users.insert_one(user_schema)
         if insert_user:
