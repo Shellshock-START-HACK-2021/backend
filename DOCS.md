@@ -15,7 +15,7 @@ Argument Format - JSON
 
 #### Example
 
-POST [https://storemed-dumb.herokuapp.com/auth/login](https://storemed-dumb.herokuapp.com/auth/login)
+POST [https://store-med.herokuapp.com/auth/login](https://store-med.herokuapp.com/auth/login)
 
 ```json
 {
@@ -48,7 +48,7 @@ Argument Format - JSON
 
 #### Example
 
-POST [https://storemed-dumb.herokuapp.com/auth/signup](https://storemed-dumb.herokuapp.com/auth/signup)
+POST [https://store-med.herokuapp.com/auth/signup](https://store-med.herokuapp.com/auth/signup)
 
 ```json
 {
@@ -105,7 +105,7 @@ None
 
 #### Example
 
-POST [https://storemed-dumb.herokuapp.com/auth/logout](https://storemed-dumb.herokuapp.com/auth/logout)
+POST [https://store-med.herokuapp.com/auth/logout](https://store-med.herokuapp.com/auth/logout)
 
 #### Returns
 
