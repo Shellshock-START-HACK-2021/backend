@@ -41,7 +41,6 @@ def signup():
     email = str(request.json.get("email", None))
     password = str(request.json.get("password", None))
     name = str(request.json.get("name", None)).title()
-    adult = bool(request.json.get("adult", False))
     if not email:
         return jsonify(success=False, error="No email provided"), 400
     if not password:
@@ -51,8 +50,6 @@ def signup():
 
     if not email_regex.match(email):
         return jsonify(success=False, error="Invalid email")
-    if not adult:
-        return jsonify(success=False, error="You must be over 18")
 
     hashed_password = bcrypt.kdf(password=password.encode("UTF-8"), salt=config("PASSWORD_SALT").encode("UTF-8"), desired_key_bytes=32, rounds=100)
     del password
