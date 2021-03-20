@@ -45,7 +45,7 @@ Argument Format - JSON
 &nbsp;&nbsp;email - string (required)  
 &nbsp;&nbsp;password - string (required)  
 &nbsp;&nbsp;name - string (required)  
-&nbsp;&nbsp;dob - string dd-MM-YYYY (required)  
+&nbsp;&nbsp;adult - bool (required)  
 
 #### Example
 
@@ -56,7 +56,7 @@ POST [https://storemed-dumb.herokuapp.com/auth/signup](https://storemed-dumb.her
     "email": "email@email.com",
     "password": "qwerty123",
     "name": "John Doe",
-    "dob": "14-06-2003"
+    "adult": "true"
 }
 ```
 

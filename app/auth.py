@@ -41,25 +41,18 @@ def signup():
     email = str(request.json.get("email", None))
     password = str(request.json.get("password", None))
     name = str(request.json.get("name", None)).title()
-    dob = str(request.json.get("dob", None))
+    adult = bool(request.json.get("adult", False))
     if not email:
         return jsonify(success=False, error="No email provided"), 400
     if not password:
         return jsonify(success=False, error="No password provided"), 400
     if not name:
         return jsonify(success=False, error="No name provided"), 400
-    if not dob:
-        return jsonify(success=False, error="No DOB provided"), 400
-    try:
-        date = datetime.strptime(dob, "%d/%m/%Y")
-    except:
-        return jsonify(success=False, error="Inavlid date format must be dd/mm/YYYY")
 
     if not email_regex.match(email):
         return jsonify(success=False, error="Invalid email")
-
-    if ((datetime.now() - date).days%366) < 18:
-        return jsonify(success=False, error="You must be over the age of 18"), 400
+    if not adult:
+        return jsonify(success=False, error="You must be over 18")
 
     hashed_password = bcrypt.kdf(password=password.encode("UTF-8"), salt=config("PASSWORD_SALT").encode("UTF-8"), desired_key_bytes=32, rounds=100)
     del password
@@ -70,7 +63,6 @@ def signup():
             "email": email, 
             "password": hashed_password,
             "name": name,
-            "dob":datetime.strptime(dob, "%d/%m/%Y")
         }
         insert_user = db.users.insert_one(user_schema)
         if insert_user:
@@ -85,6 +77,7 @@ def signup():
 
 
 @bp.route("/logout", methods=["POST"])
+@jwt_required()
 def logout():
     response = jsonify(success=True)
     unset_jwt_cookies(response)
