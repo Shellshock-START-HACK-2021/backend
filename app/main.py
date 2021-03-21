@@ -43,7 +43,8 @@ def refresh_expiring_jwts(response):
 ## Unauthorized request handler
 @jwt.unauthorized_loader
 def my_invalid_token_callback(expired_token):
-    return jsonify(success=False, error="Invalid token or user isn't logged in"), 403
+    print(expired_token)
+    return jsonify(success=False, error=expired_token), 403
 
 if __name__ == '__main__':
     app.run(debug=True)
