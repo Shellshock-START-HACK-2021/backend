@@ -23,7 +23,7 @@ Naked==0.1.31
 numpy==1.20.1
 oauthlib==3.1.0
 pycparser==2.20
-pycrypto==2.6.1
+pycryptodome==3.10.1
 PyJWT==2.0.1
 pymongo==3.11.3
 python-decouple==3.4
