@@ -12,7 +12,6 @@ def word_definition():
         "app_key": config("OXFORD_KEY")
     }
     resp = requests.get(f"https://od-api.oxforddictionaries.com/api/v2/words/en-gb?q={word}", headers=headers)
-    print(resp.text)
     if resp.status_code >= 400:
         return jsonify(success=False, error="word not found")
     result = resp.json()["results"][0]
