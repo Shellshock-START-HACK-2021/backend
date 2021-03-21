@@ -6,7 +6,7 @@ from flask_cors import CORS
 from flask_jwt_extended import (JWTManager, create_access_token, get_jwt,
                                 get_jwt_identity, set_access_cookies)
 
-from app import auth, upload, user
+from app import auth, upload, user, misc
 
 app = Flask(__name__)
 
@@ -16,6 +16,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.register_blueprint(auth.bp, url_prefix="/auth")
 app.register_blueprint(user.bp, url_prefix="/user")
 app.register_blueprint(upload.bp, url_prefix="/upload")
+app.register_blueprint(misc.bp, url_prefix="/misc")
 ## JWT settings and init
 app.config["JWT_COOKIE_SECURE"] = False
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
